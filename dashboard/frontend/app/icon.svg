@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="6" fill="#0D1117"/>
+  <ellipse cx="9" cy="6" rx="2" ry="3.5" fill="#FF4500" opacity="0.9"/>
+  <ellipse cx="8.2" cy="5" rx="1.2" ry="2.2" fill="#FF8C00" opacity="0.85"/>
+  <ellipse cx="9.3" cy="4.5" rx="0.9" ry="1.8" fill="#FFD700" opacity="0.9"/>
+  <ellipse cx="16" cy="5" rx="2" ry="3.8" fill="#FF4500" opacity="0.9"/>
+  <ellipse cx="15.2" cy="3.8" rx="1.2" ry="2.4" fill="#FF8C00" opacity="0.85"/>
+  <ellipse cx="16.2" cy="3.2" rx="0.9" ry="2" fill="#FFD700" opacity="0.9"/>
+  <ellipse cx="23" cy="6" rx="2" ry="3.5" fill="#FF4500" opacity="0.9"/>
+  <ellipse cx="22.2" cy="5" rx="1.2" ry="2.2" fill="#FF8C00" opacity="0.85"/>
+  <ellipse cx="23.3" cy="4.5" rx="0.9" ry="1.8" fill="#FFD700" opacity="0.9"/>
+  <text x="16" y="26" text-anchor="middle" font-family="serif" font-size="18" font-weight="bold" fill="#CC3300">&#x05E9;</text>
+</svg>

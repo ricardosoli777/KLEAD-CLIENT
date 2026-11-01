@@ -1,0 +1,66 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Evolution GO — API WhatsApp
+#
+# Build:  bash scripts/build-evolution-go.sh
+# Deploy: docker stack deploy -c stacks/evolution-go.yml evolution_go
+# Pré-requisito: PostgreSQL rodando e bancos criados:
+#   docker exec $(docker ps -q -f name=postgres_postgres) \
+#     psql -U postgres -c "CREATE DATABASE evolution_go_users;"
+#   docker exec $(docker ps -q -f name=postgres_postgres) \
+#     psql -U postgres -c "CREATE DATABASE evolution_go_auth;"
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: "3.8"
+
+services:
+  evolution_go:
+    # Build NA VPS de evolution-foundation/evolution-go, revisão fixada.
+    # Nunca copiar uma imagem de produção ou dados de usuários para instalar.
+    image: klead-evolution-go:9337afc47e10
+    environment:
+      - SERVER_PORT=4000
+      - GLOBAL_API_KEY=${EVO_GLOBAL_API_KEY}
+      - POSTGRES_USERS_DB=postgresql://${EVO_PG_USER_URLENCODED:-postgres}:${EVO_PG_PASSWORD_URLENCODED}@${EVO_PG_HOST:-postgres}:${EVO_PG_PORT:-5432}/${EVO_PG_DB:-evolution_go_users}?sslmode=disable
+      - POSTGRES_AUTH_DB=postgresql://${EVO_PG_USER_URLENCODED:-postgres}:${EVO_PG_PASSWORD_URLENCODED}@${EVO_PG_HOST:-postgres}:${EVO_PG_PORT:-5432}/evolution_go_auth?sslmode=disable
+      - DATABASE_SAVE_MESSAGES=true
+      - CONNECT_ON_STARTUP=true
+      - CLIENT_NAME=evolution
+      - LOGTYPE=console
+      - LOG_DIRECTORY=/app/logs
+      - LOG_MAX_SIZE=100
+      - LOG_MAX_BACKUPS=5
+      - LOG_MAX_AGE=30
+      - LOG_COMPRESS=true
+      - WEBHOOK_FILES=true
+      - WADEBUG=INFO
+      - OS_NAME=Linux
+    volumes:
+      - evolution_go_data:/app/dbdata
+      - evolution_go_logs:/app/logs
+    networks:
+      - traefik_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.swarm.network=${TRAEFIK_NETWORK:-klead}"
+        - "traefik.http.routers.evolution_go.rule=Host(`${DOMAIN_EVO}`)"
+        - "traefik.http.routers.evolution_go.entrypoints=${TRAEFIK_ENTRYPOINT:-websecure}"
+        - "traefik.http.routers.evolution_go.tls.certresolver=${TRAEFIK_CERTRESOLVER:-letsencryptresolver}"
+        - "traefik.http.routers.evolution_go.service=evolution_go"
+        - "traefik.http.services.evolution_go.loadbalancer.server.port=4000"
+        - "traefik.http.services.evolution_go.loadbalancer.passHostHeader=true"
+
+volumes:
+  evolution_go_data:
+  evolution_go_logs:
+
+networks:
+  traefik_net:
+    external: true
+    name: ${TRAEFIK_NETWORK:-klead}

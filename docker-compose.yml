@@ -1,0 +1,69 @@
+services:
+
+  # ── Backend FastAPI ───────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./dashboard/backend
+      dockerfile: Dockerfile
+    container_name: klead-backend
+    restart: always
+    environment:
+      - DASHBOARD_SECRET=${DASHBOARD_SECRET}
+      - WEBHOOK_SECRET=${WEBHOOK_SECRET}
+      - COOKIE_SECURE=${COOKIE_SECURE:-false}
+      - PUBLIC_WEBHOOK_BASE=${PUBLIC_WEBHOOK_BASE}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+      - EVO_PG_HOST=${EVO_PG_HOST}
+      - EVO_PG_PORT=${EVO_PG_PORT}
+      - EVO_PG_USER=${EVO_PG_USER}
+      - EVO_PG_PASSWORD=${EVO_PG_PASSWORD}
+      - EVO_PG_DB=${EVO_PG_DB}
+      - EMBEDDING_OPENAI_KEY=${EMBEDDING_OPENAI_KEY:-}
+      - AUTO_PATTERNS_INTERVAL_HOURS=${AUTO_PATTERNS_INTERVAL_HOURS:-6}
+      - AUTO_PATTERNS_MIN_CONVS=${AUTO_PATTERNS_MIN_CONVS:-5}
+    volumes:
+      # Persiste os dados fora do container (configs, conversas, histórico)
+      - klead_data:/app/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - default
+      - evolution_network
+
+  # ── Frontend Next.js ──────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./dashboard/frontend
+      dockerfile: Dockerfile
+    container_name: klead-frontend
+    restart: always
+    environment:
+      # Lidas em runtime pelo proxy server-side — nunca chegam ao browser
+      - API_KEY=${DASHBOARD_SECRET}
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+
+  # ── Cloudflare Tunnel ─────────────────────────────────────────────────────────
+  # Expõe o backend publicamente sem abrir portas no roteador.
+  # O tunnel aponta para http://backend:8000 (rede Docker interna).
+  # URL pública: https://api.example.com
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: klead-cloudflared
+    restart: always
+    # Token via environment (TUNNEL_TOKEN) — não aparece em `docker inspect`/`ps`
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    command: tunnel --no-autoupdate --protocol http2 run
+    depends_on:
+      - backend
+
+volumes:
+  klead_data:
+
+networks:
+  default: {}
+  evolution_network:
+    external: true
+    name: evolution-go_evolution_network

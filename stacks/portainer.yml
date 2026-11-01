@@ -1,0 +1,48 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Portainer — Interface visual para gerenciar Docker Swarm
+#
+# Deploy: docker stack deploy -c stacks/portainer.yml portainer
+# Pré-requisito: Traefik rodando na rede ${TRAEFIK_NETWORK}
+# Pré-requisito: arquivo de senha admin gerado antes do deploy em
+#   ${PORTAINER_SECRET_PATH:-/etc/klead/secrets/portainer_admin_password}
+#   (gerado automaticamente pelo install.sh via htpasswd -B)
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: "3.8"
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    command:
+      - "-H"
+      - "unix:///var/run/docker.sock"
+      - "--admin-password-file"
+      - "/run/secrets/portainer_admin_password"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer_data:/data
+      - ${PORTAINER_SECRET_PATH:-/etc/klead/secrets/portainer_admin_password}:/run/secrets/portainer_admin_password:ro
+    networks:
+      - traefik_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.swarm.network=${TRAEFIK_NETWORK:-klead}"
+        - "traefik.http.routers.portainer.rule=Host(`${DOMAIN_PORTAINER}`)"
+        - "traefik.http.routers.portainer.entrypoints=${TRAEFIK_ENTRYPOINT:-websecure}"
+        - "traefik.http.routers.portainer.tls.certresolver=${TRAEFIK_CERTRESOLVER:-letsencryptresolver}"
+        - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+
+volumes:
+  portainer_data:
+
+networks:
+  traefik_net:
+    external: true
+    name: ${TRAEFIK_NETWORK:-klead}

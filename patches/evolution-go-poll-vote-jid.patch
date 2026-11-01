@@ -1,0 +1,32 @@
+diff --git a/pkg/whatsmeow/service/whatsmeow.go b/pkg/whatsmeow/service/whatsmeow.go
+index 54dbe45..b55589c 100644
+--- a/pkg/whatsmeow/service/whatsmeow.go
++++ b/pkg/whatsmeow/service/whatsmeow.go
+@@ -1324,6 +1324,14 @@ func (mycli *MyClient) myEventHandler(rawEvt interface{}) {
+ 			return
+ 		}
+ 
++		// Preserve os JIDs recebidos para a chave criptográfica do voto. A normalização
++		// abaixo continua valendo para webhook, contatos e mensagens comuns.
++		var originalPollEvent *events.Message
++		if evt.Message.GetPollUpdateMessage() != nil {
++			original := *evt
++			originalPollEvent = &original
++		}
++
+ 		// Trata o caso especial onde Sender é @lid e SenderAlt é @s.whatsapp.net
+ 		// Neste caso, devemos inverter: Sender e Chat devem ser @s.whatsapp.net, SenderAlt deve ser @lid
+ 		senderStr := evt.Info.Sender.String()
+@@ -1419,7 +1427,11 @@ func (mycli *MyClient) myEventHandler(rawEvt interface{}) {
+ 				fmt.Printf("[POLL DEBUG] ✅ mycli.WAClient is initialized: %s\n", mycli.WAClient.Store.ID)
+ 			}
+ 
+-			decrypted, err := mycli.clientPointer[mycli.userID].DecryptPollVote(context.Background(), evt)
++			decrypted, err := mycli.clientPointer[mycli.userID].DecryptPollVote(context.Background(), originalPollEvent)
++			if err != nil {
++				// Compatibilidade com votos antigos cujo remetente já era o JID normalizado.
++				decrypted, err = mycli.clientPointer[mycli.userID].DecryptPollVote(context.Background(), evt)
++			}
+ 			if err != nil {
+ 				mycli.loggerWrapper.GetLogger(mycli.userID).LogError("[%s] Failed to decrypt vote: %v", mycli.userID, err)
+ 			} else {

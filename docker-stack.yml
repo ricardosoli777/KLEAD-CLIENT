@@ -1,0 +1,126 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# KLEAD — Docker Stack para produção (Docker Swarm + Traefik)
+#
+# COMO USAR EM UMA VPS NOVA:
+#   Execute python install.py no computador ou sudo bash install.sh na VPS.
+#   O wizard compila as imagens NA VPS e injeta /etc/klead/klead.env em runtime.
+#
+# PRÉ-REQUISITOS NA VPS:
+#   - Docker com Swarm inicializado (docker swarm init)
+#   - Traefik rodando na rede ${TRAEFIK_NETWORK} com entrypoint "websecure"
+#   - PostgreSQL acessível em ${EVO_PG_HOST}
+#   - DNS apontado: ${DOMAIN_API} e ${DOMAIN_APP} → IP da VPS
+#   - DOMAIN_LOGIN e DOMAIN_PLANS definidos (podem repetir o DOMAIN_APP) —
+#     vazios invalidam a regra Host() do Traefik e derrubam a rota do frontend
+#   - Redeploy com configuração privada: sudo bash scripts/update.sh all --config
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: "3.8"
+
+services:
+
+  # ── Backend FastAPI ───────────────────────────────────────────────────────
+  backend:
+    image: ${KLEAD_BACKEND_IMAGE:-klead_backend:latest}
+    environment:
+      - DASHBOARD_SECRET=${DASHBOARD_SECRET}
+      - WEBHOOK_SECRET=${WEBHOOK_SECRET}
+      - COOKIE_SECURE=${COOKIE_SECURE:-true}
+      - PUBLIC_WEBHOOK_BASE=https://${DOMAIN_API}
+      - WEBHOOK_BASE_URL=${WEBHOOK_BASE_URL:-http://klead_backend:8000}
+      - EVO_MEDIA_BASE=${EVO_MEDIA_BASE:-http://klead_backend:8000}
+      - KLEAD_APP_URL=https://${DOMAIN_APP}
+      - ALLOWED_ORIGINS=https://${DOMAIN_APP},https://${DOMAIN_LOGIN},https://${DOMAIN_PLANS}
+      - EVO_PG_HOST=${EVO_PG_HOST:-postgres}
+      - EVO_PG_PORT=${EVO_PG_PORT:-5432}
+      - EVO_PG_USER=${EVO_PG_USER:-postgres}
+      - EVO_PG_PASSWORD=${EVO_PG_PASSWORD}
+      - EVO_PG_DB=${EVO_PG_DB:-evolution_go_users}
+      - INST_PG_DB=${INST_PG_DB:-klead}
+      - CRM_PG_DB=${CRM_PG_DB:-klead}
+      - SENTRY_DSN=${SENTRY_DSN:-}
+      - SENTRY_ENVIRONMENT=${SENTRY_ENVIRONMENT:-production}
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - META_APP_SECRET=${META_APP_SECRET:-}
+      - META_OAUTH_APP_ID=${META_OAUTH_APP_ID:-}
+      - META_OAUTH_APP_SECRET=${META_OAUTH_APP_SECRET:-}
+      - META_OAUTH_REDIRECT_URI=${META_OAUTH_REDIRECT_URI:-}
+      - EVO_GLOBAL_API_KEY=${EVO_GLOBAL_API_KEY:-}
+      - EVO_API_URL=${EVO_API_URL:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - KLEAD_LLM_PROVIDER=${KLEAD_LLM_PROVIDER:-}
+      - KLEAD_LLM_MODEL=${KLEAD_LLM_MODEL:-}
+      - EMBEDDING_OPENAI_KEY=${EMBEDDING_OPENAI_KEY:-}
+      - AUTO_PATTERNS_INTERVAL_HOURS=${AUTO_PATTERNS_INTERVAL_HOURS:-6}
+      - AUTO_PATTERNS_MIN_CONVS=${AUTO_PATTERNS_MIN_CONVS:-5}
+      - QUEUE_MAX_SIZE=${QUEUE_MAX_SIZE:-500}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-}
+      - STRIPE_PRICE_LITE=${STRIPE_PRICE_LITE:-}
+      - STRIPE_PRICE_USER=${STRIPE_PRICE_USER:-}
+      - STRIPE_PRICE_PRO=${STRIPE_PRICE_PRO:-}
+      - STRIPE_PRICE_ENTERPRISE=${STRIPE_PRICE_ENTERPRISE:-}
+      - STRIPE_PRICE_LITE_MENSAL_AVULSO=${STRIPE_PRICE_LITE_MENSAL_AVULSO:-}
+      - STRIPE_PRICE_LITE_SEMESTRAL=${STRIPE_PRICE_LITE_SEMESTRAL:-}
+      - STRIPE_PRICE_LITE_ANUAL=${STRIPE_PRICE_LITE_ANUAL:-}
+      # Bootstrap do primeiro acesso — sem isso o backend não cria nenhum
+      # usuário e o dashboard recém-instalado fica sem login possível.
+      - SUPERADMIN_EMAIL=${SUPERADMIN_EMAIL:-}
+      - SUPERADMIN_PASSWORD=${SUPERADMIN_PASSWORD:-}
+    volumes:
+      - klead_data:/app/data
+    networks:
+      - traefik_net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - "traefik.enable=true"
+        - "traefik.swarm.network=${TRAEFIK_NETWORK:-klead}"
+        - "traefik.http.routers.klead_api.rule=Host(`${DOMAIN_API}`)"
+        - "traefik.http.routers.klead_api.entrypoints=${TRAEFIK_ENTRYPOINT:-websecure}"
+        - "traefik.http.routers.klead_api.tls.certresolver=${TRAEFIK_CERTRESOLVER:-letsencryptresolver}"
+        - "traefik.http.services.klead_api.loadbalancer.server.port=8000"
+
+  # ── Frontend Next.js ──────────────────────────────────────────────────────
+  frontend:
+    image: ${KLEAD_FRONTEND_IMAGE:-klead_frontend:latest}
+    environment:
+      - API_KEY=${DASHBOARD_SECRET}
+      - BACKEND_URL=http://klead_backend:8000
+      - EVO_API_URL=${EVO_API_URL:-}
+    networks:
+      - traefik_net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - "traefik.enable=true"
+        - "traefik.swarm.network=${TRAEFIK_NETWORK:-klead}"
+        - "traefik.http.routers.klead.rule=Host(`${DOMAIN_APP}`) || Host(`${DOMAIN_LOGIN}`) || Host(`${DOMAIN_PLANS}`)"
+        - "traefik.http.routers.klead.entrypoints=${TRAEFIK_ENTRYPOINT:-websecure}"
+        - "traefik.http.routers.klead.tls.certresolver=${TRAEFIK_CERTRESOLVER:-letsencryptresolver}"
+        - "traefik.http.services.klead.loadbalancer.server.port=3000"
+
+volumes:
+  klead_data:
+
+networks:
+  traefik_net:
+    external: true
+    name: ${TRAEFIK_NETWORK:-klead}

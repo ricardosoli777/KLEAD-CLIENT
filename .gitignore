@@ -1,0 +1,84 @@
+# Ícone gerado localmente
+klead.ico
+
+# Logs do tray
+*.log
+*.bak
+*.bak*
+*.fullbak
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.pytest-of-*/
+C_tmp/
+*.db
+*.tsbuildinfo
+.env
+venv/
+.venv/
+.claude/settings.local.json
+
+# Backend — dados locais
+dashboard/backend/instances_config.json
+dashboard/backend/campaign_history.json
+dashboard/backend/conversations.json
+dashboard/backend/ai_config.json
+dashboard/backend/users.json
+dashboard/backend/revoked_tokens.json
+dashboard/backend/assignments.json
+dashboard/backend/patterns.json
+dashboard/backend/crm.json
+dashboard/backend/alerts.json
+dashboard/backend/progress/
+dashboard/backend/logs/
+dashboard/backend/.pytest_cache/
+dashboard/backend/data/
+.klead-secret-audit.md
+
+# Frontend
+dashboard/frontend/.next/
+dashboard/frontend/node_modules/
+dashboard/frontend/.env.local
+contatos/processados/
+qrcode.png
+
+# Scripts temporários de deploy/verificação (contêm credenciais)
+deploy_vps.py
+health_check.py
+hc2.py
+check_vps.py
+_backups/
+
+# Arquivos locais de infraestrutura
+docker-compose.oracle.yml
+sftp_upload.py
+
+# Credenciais — nunca versionar
+.env.*
+!.env.example
+*.pem
+*.key
+*.ppk
+*.keystore
+.npmrc
+.pypirc
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+ssh-key-*
+secrets/
+*.secret
+*.env
+*.dump
+*.dump.tmp
+*.tar.gz
+
+# Configuração pessoal e dados fora do pacote
+.mcp.json
+.claude/
+.codex/
+contatos/

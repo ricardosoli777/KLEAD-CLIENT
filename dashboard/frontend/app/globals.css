@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+:root {
+  --wz-bg:           #F0EDE8;
+  --wz-surface:      #E8E4DF;
+  --wz-surface2:     #D4CFC9;
+  --wz-green:        #CC3300;
+  --wz-green-dark:   #991F00;
+  --wz-green-header: #3D0A00;
+  --wz-bubble:       #F5D5C8;
+  --wz-text:         #1A1410;
+  --wz-text2:        #6B5E55;
+  --wz-border:       #D4CFC9;
+  --wz-blue:         #3B82F6;
+
+  /* Tema escuro perolado — header, botões, elementos dark */
+  --dark-pearl:      #0E0E18;
+  --dark-surface:    #141420;
+  --dark-border:     #252535;
+  --dark-border-h:   #303050;
+
+  --background: var(--wz-bg);
+  --foreground: var(--wz-text);
+  --font-geist-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-geist-mono: "SF Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+
+  --wz-shadow-sm: 0 2px 8px rgba(26, 20, 16, 0.06);
+  --wz-shadow-md: 0 8px 24px rgba(26, 20, 16, 0.10);
+  --wz-shadow-lg: 0 16px 40px rgba(26, 20, 16, 0.14);
+}
+
+@theme inline {
+  --color-background:       var(--background);
+  --color-foreground:       var(--foreground);
+  --font-sans:              var(--font-geist-sans);
+  --font-mono:              var(--font-geist-mono);
+
+  --color-wz-bg:            #F0EDE8;
+  --color-wz-surface:       #E8E4DF;
+  --color-wz-surface2:      #D4CFC9;
+  --color-wz-green:         #CC3300;
+  --color-wz-green-dark:    #991F00;
+  --color-wz-green-header:  #3D0A00;
+  --color-wz-bubble:        #F5D5C8;
+  --color-wz-text:          #1A1410;
+  --wz-text2:               #6B5E55;
+  --color-wz-border:        #D4CFC9;
+  --color-wz-blue:          #3B82F6;
+}
+
+body {
+  background: var(--wz-bg);
+  color: var(--wz-text);
+  font-family: var(--font-geist-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.secret-input {
+  -webkit-text-security: disc;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--wz-bg); }
+::-webkit-scrollbar-thumb { background: var(--wz-surface2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--wz-text2); }
+
+/* Seleção de texto */
+::selection {
+  background: var(--wz-green-dark);
+  color: var(--wz-text);
+}
+
+/* Luz pulsante de alerta de follow-up (modal do lead) */
+@keyframes followup-glow {
+  0%, 100% { box-shadow: 0 0 0px 0px var(--glow-color, #F87171); }
+  50%      { box-shadow: 0 0 22px 6px var(--glow-color, #F87171); }
+}
+.followup-glow {
+  animation: followup-glow 1.4s ease-in-out infinite;
+}
