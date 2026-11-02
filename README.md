@@ -1,4 +1,4 @@
-![KLEAD — Qualificação de leads com IA, WhatsApp e CRM](docs/assets/klead-banner.png)
+![KLEAD-CLIENT — Qualificação de leads com IA, WhatsApp e CRM](docs/assets/klead-client-banner.png)
 
 # KLEAD-CLIENT
 

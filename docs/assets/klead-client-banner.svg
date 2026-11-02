@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="800" viewBox="0 0 2400 800" font-family="'Segoe UI Variable Display','Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif">
+  <title>KLEAD-CLIENT — Qualificação de leads com IA, WhatsApp e CRM</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B0A0D"/>
+      <stop offset="1" stop-color="#120D0B"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FF5A1F" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#CC3300" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#CC3300" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowC" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFB37A" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#FFB37A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF7A3D"/>
+      <stop offset="1" stop-color="#CC3300"/>
+    </linearGradient>
+    <linearGradient id="copperV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF8A4C"/>
+      <stop offset="1" stop-color="#D13A06"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.025"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.28"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FF7A3D" stop-opacity="0.35"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF7A3D" stop-opacity="0.1"/>
+      <stop offset="0.5" stop-color="#FF7A3D" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#FF7A3D" stop-opacity="0.1"/>
+    </linearGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#FFFFFF" fill-opacity="0.06"/>
+    </pattern>
+    <linearGradient id="fadeR" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="1"/>
+      <stop offset="0.45" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="dotMask">
+      <rect width="2400" height="800" fill="#fff"/>
+      <rect width="2400" height="800" fill="url(#fadeR)"/>
+    </mask>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <!-- Fundo -->
+  <rect width="2400" height="800" fill="url(#bg)"/>
+  <rect width="2400" height="800" fill="url(#dots)" mask="url(#dotMask)"/>
+  <ellipse cx="1700" cy="420" rx="760" ry="520" fill="url(#glowB)"/>
+  <ellipse cx="1990" cy="250" rx="420" ry="320" fill="url(#glowA)"/>
+  <ellipse cx="380" cy="120" rx="520" ry="300" fill="url(#glowC)"/>
+  <rect x="0" y="0" width="2400" height="2" fill="url(#copper)" opacity="0.7"/>
+
+  <!-- Texto -->
+  <g transform="translate(150 0)">
+    <g transform="translate(0 214)">
+      <rect width="356" height="48" rx="24" fill="#FF7A3D" fill-opacity="0.1" stroke="#FF7A3D" stroke-opacity="0.45" stroke-width="1.5"/>
+      <circle cx="28" cy="24" r="7" fill="#FF7A3D"/>
+      <circle cx="28" cy="24" r="13" fill="none" stroke="#FF7A3D" stroke-opacity="0.35" stroke-width="2"/>
+      <text x="52" y="32" font-size="22" font-weight="600" letter-spacing="3" fill="#FFB892">CRM · WHATSAPP · IA</text>
+    </g>
+    <text x="-6" y="408" font-size="168" font-weight="800" letter-spacing="-6" fill="#F6EFE9">KLEAD</text>
+    <text x="512" y="408" font-size="168" font-weight="300" letter-spacing="-4" fill="url(#copper)">client</text>
+    <text x="0" y="482" font-size="44" font-weight="600" fill="#F6EFE9" fill-opacity="0.92">Qualificação de leads com IA</text>
+    <text x="0" y="538" font-size="31" font-weight="400" fill="#BFB2A8">Conversas do WhatsApp, atendimento inteligente e CRM</text>
+    <text x="0" y="580" font-size="31" font-weight="400" fill="#BFB2A8">em um só painel, na sua própria infraestrutura.</text>
+    <g transform="translate(0 626)" font-size="22" font-weight="600" fill="#E9DED6">
+      <rect width="206" height="46" rx="12" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.14"/>
+      <text x="103" y="30" text-anchor="middle">Instalação local</text>
+      <rect x="222" width="196" height="46" rx="12" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.14"/>
+      <text x="320" y="30" text-anchor="middle">VPS com HTTPS</text>
+      <rect x="434" width="222" height="46" rx="12" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.14"/>
+      <text x="545" y="30" text-anchor="middle">FastAPI · Next.js</text>
+    </g>
+  </g>
+
+  <!-- Linhas de fluxo -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M1478 300 C1530 300 1520 250 1572 250" stroke="url(#flow)" stroke-width="3"/>
+    <path d="M1478 470 C1530 470 1520 520 1572 520" stroke="url(#flow)" stroke-width="3"/>
+    <path d="M1872 300 C1924 300 1914 230 1966 230" stroke="url(#flow)" stroke-width="3"/>
+    <path d="M1872 470 C1924 470 1914 540 1966 540" stroke="url(#flow)" stroke-width="3"/>
+    <path d="M1478 300 C1530 300 1520 250 1572 250" stroke="#FF7A3D" stroke-width="10" opacity="0.18" filter="url(#soft)"/>
+    <path d="M1872 470 C1924 470 1914 540 1966 540" stroke="#FF7A3D" stroke-width="10" opacity="0.18" filter="url(#soft)"/>
+  </g>
+  <g fill="#FF8A4C">
+    <circle cx="1478" cy="300" r="6"/><circle cx="1572" cy="250" r="6"/>
+    <circle cx="1478" cy="470" r="6"/><circle cx="1572" cy="520" r="6"/>
+    <circle cx="1872" cy="300" r="6"/><circle cx="1966" cy="230" r="6"/>
+    <circle cx="1872" cy="470" r="6"/><circle cx="1966" cy="540" r="6"/>
+  </g>
+
+  <!-- Card 1: conversa -->
+  <g transform="translate(1158 168)" filter="url(#shadow)">
+    <rect width="320" height="440" rx="28" fill="#17120F" fill-opacity="0.82"/>
+    <rect width="320" height="440" rx="28" fill="url(#glass)" stroke="url(#edge)" stroke-width="1.5"/>
+    <circle cx="44" cy="44" r="16" fill="url(#copperV)"/>
+    <path d="M37 40 h14 a3 3 0 0 1 3 3 v6 a3 3 0 0 1 -3 3 h-8 l-5 4 v-4 h-1 a3 3 0 0 1 -3 -3 v-6 a3 3 0 0 1 3 -3z" fill="#1A120E"/>
+    <rect x="72" y="34" width="120" height="10" rx="5" fill="#F6EFE9" fill-opacity="0.8"/>
+    <rect x="72" y="52" width="72" height="8" rx="4" fill="#F6EFE9" fill-opacity="0.3"/>
+    <circle cx="282" cy="44" r="5" fill="#3DDC97"/>
+    <rect x="24" y="88" width="272" height="1" fill="#FFFFFF" fill-opacity="0.08"/>
+    <rect x="24" y="112" width="200" height="62" rx="18" fill="#FFFFFF" fill-opacity="0.08"/>
+    <rect x="44" y="132" width="150" height="8" rx="4" fill="#F6EFE9" fill-opacity="0.55"/>
+    <rect x="44" y="150" width="100" height="8" rx="4" fill="#F6EFE9" fill-opacity="0.3"/>
+    <rect x="96" y="192" width="200" height="62" rx="18" fill="url(#copper)"/>
+    <rect x="116" y="212" width="150" height="8" rx="4" fill="#FFF3EC" fill-opacity="0.9"/>
+    <rect x="116" y="230" width="96" height="8" rx="4" fill="#FFF3EC" fill-opacity="0.6"/>
+    <rect x="24" y="272" width="224" height="62" rx="18" fill="#FFFFFF" fill-opacity="0.08"/>
+    <rect x="44" y="292" width="170" height="8" rx="4" fill="#F6EFE9" fill-opacity="0.55"/>
+    <rect x="44" y="310" width="120" height="8" rx="4" fill="#F6EFE9" fill-opacity="0.3"/>
+    <rect x="24" y="356" width="272" height="52" rx="16" fill="#FFFFFF" fill-opacity="0.04" stroke="#FFFFFF" stroke-opacity="0.1"/>
+    <text x="46" y="389" font-size="19" font-weight="600" fill="#FFB892">IA respondendo</text>
+    <circle cx="232" cy="382" r="4" fill="#FF8A4C"/><circle cx="248" cy="382" r="4" fill="#FF8A4C" fill-opacity="0.6"/><circle cx="264" cy="382" r="4" fill="#FF8A4C" fill-opacity="0.3"/>
+  </g>
+
+  <!-- Card 2: score -->
+  <g transform="translate(1572 128)" filter="url(#shadow)">
+    <rect width="300" height="520" rx="28" fill="#17120F" fill-opacity="0.82"/>
+    <rect width="300" height="520" rx="28" fill="url(#glass)" stroke="url(#edge)" stroke-width="1.5"/>
+    <text x="32" y="56" font-size="20" font-weight="600" letter-spacing="2" fill="#BFB2A8">SCORE DO LEAD</text>
+    <circle cx="150" cy="190" r="88" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="16"/>
+    <circle cx="150" cy="190" r="88" fill="none" stroke="url(#copperV)" stroke-width="16" stroke-linecap="round" stroke-dasharray="470 553" transform="rotate(-90 150 190)"/>
+    <circle cx="150" cy="190" r="110" fill="#FF7A3D" fill-opacity="0.06"/>
+    <text x="150" y="208" text-anchor="middle" font-size="64" font-weight="800" letter-spacing="-2" fill="#F6EFE9">85</text>
+    <text x="150" y="240" text-anchor="middle" font-size="18" font-weight="600" letter-spacing="2" fill="#FFB892">QUENTE</text>
+    <g transform="translate(32 322)">
+      <rect width="236" height="10" rx="5" fill="#FFFFFF" fill-opacity="0.08"/><rect width="196" height="10" rx="5" fill="url(#copper)"/>
+      <rect y="48" width="236" height="10" rx="5" fill="#FFFFFF" fill-opacity="0.08"/><rect y="48" width="150" height="10" rx="5" fill="url(#copper)"/>
+      <rect y="96" width="236" height="10" rx="5" fill="#FFFFFF" fill-opacity="0.08"/><rect y="96" width="176" height="10" rx="5" fill="url(#copper)"/>
+      <rect y="-26" width="88" height="8" rx="4" fill="#F6EFE9" fill-opacity="0.35"/>
+      <rect y="22" width="110" height="8" rx="4" fill="#F6EFE9" fill-opacity="0.35"/>
+      <rect y="70" width="72" height="8" rx="4" fill="#F6EFE9" fill-opacity="0.35"/>
+    </g>
+  </g>
+
+  <!-- Card 3: pipeline -->
+  <g transform="translate(1966 168)" filter="url(#shadow)">
+    <rect width="300" height="440" rx="28" fill="#17120F" fill-opacity="0.82"/>
+    <rect width="300" height="440" rx="28" fill="url(#glass)" stroke="url(#edge)" stroke-width="1.5"/>
+    <text x="28" y="54" font-size="20" font-weight="600" letter-spacing="2" fill="#BFB2A8">PIPELINE</text>
+    <g transform="translate(24 80)">
+      <rect width="76" height="12" rx="6" fill="#FFFFFF" fill-opacity="0.18"/>
+      <rect x="90" width="76" height="12" rx="6" fill="#FFFFFF" fill-opacity="0.18"/>
+      <rect x="180" width="72" height="12" rx="6" fill="url(#copper)"/>
+      <g fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.1">
+        <rect y="30" width="76" height="72" rx="12"/><rect y="114" width="76" height="72" rx="12"/><rect y="198" width="76" height="72" rx="12"/>
+        <rect x="90" y="30" width="76" height="72" rx="12"/><rect x="90" y="114" width="76" height="72" rx="12"/>
+        <rect x="180" y="30" width="72" height="72" rx="12"/>
+      </g>
+      <rect x="180" y="114" width="72" height="72" rx="12" fill="url(#copperV)"/>
+      <g fill="#F6EFE9" fill-opacity="0.4">
+        <circle cx="18" cy="52" r="7"/><circle cx="18" cy="136" r="7"/><circle cx="18" cy="220" r="7"/>
+        <circle cx="108" cy="52" r="7"/><circle cx="108" cy="136" r="7"/><circle cx="198" cy="52" r="7"/>
+        <rect x="12" y="70" width="52" height="7" rx="3.5"/><rect x="12" y="154" width="44" height="7" rx="3.5"/><rect x="12" y="238" width="50" height="7" rx="3.5"/>
+        <rect x="102" y="70" width="48" height="7" rx="3.5"/><rect x="102" y="154" width="54" height="7" rx="3.5"/><rect x="192" y="70" width="46" height="7" rx="3.5"/>
+      </g>
+      <circle cx="198" cy="136" r="7" fill="#FFF3EC"/>
+      <rect x="192" y="154" width="48" height="7" rx="3.5" fill="#FFF3EC" fill-opacity="0.85"/>
+      <rect y="292" width="252" height="52" rx="16" fill="#3DDC97" fill-opacity="0.1" stroke="#3DDC97" stroke-opacity="0.35"/>
+      <path d="M22 318 l8 8 l14 -16" fill="none" stroke="#3DDC97" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="58" y="325" font-size="19" font-weight="600" fill="#9BEFC6">Lead qualificado</text>
+    </g>
+  </g>
+</svg>
