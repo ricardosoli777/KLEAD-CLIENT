@@ -1,6 +1,6 @@
 # Instalação do KLEAD em uma VPS
 
-Este é o procedimento do wizard VPS existente. Para execução no computador, veja [Local](docs/instalacao/local.md): o instalador local completo ainda não está disponível. Confira também [requisitos](docs/instalacao/requisitos.md), [visão do fluxo VPS](docs/instalacao/vps.md), [primeiro acesso](docs/uso/primeiro-acesso.md) e [pendências de distribuição](docs/distribuicao/preparacao.md).
+Este é o procedimento do wizard VPS existente. O roteiro passo a passo, do PC ao primeiro acesso, está em [Instalação VPS](docs/instalacao/vps.md); confira antes as ferramentas com a [verificação do PC e da VPS](docs/instalacao/verificacao.md). Para execução no computador, veja [Local](docs/instalacao/local.md): é um procedimento manual, sem instalador local automático. Confira também [requisitos](docs/instalacao/requisitos.md), [visão do fluxo VPS](docs/instalacao/vps.md), [primeiro acesso](docs/uso/primeiro-acesso.md) e [pendências de distribuição](docs/distribuicao/preparacao.md).
 
 **Limite de validação:** o fluxo foi revisado por leitura e sintaxe; a homologação completa em ambientes limpos e nas plataformas anunciadas permanece pendente. O script não possui modo de simulação e pode instalar dependências, criar configuração, alterar firewall e inicializar Swarm. Faça o inventário e revise o plano antes de executá-lo.
 

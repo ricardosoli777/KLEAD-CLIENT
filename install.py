@@ -36,7 +36,7 @@ def ask(message: str, default: str = "") -> str:
 def payload_files():
     for name in ("install.sh", "docker-stack.yml"):
         yield ROOT / name
-    for name in ("build-evolution-go.sh", "install-env.py", "pg-backup.sh", "update.sh", "fix-webhook.py"):
+    for name in ("build-evolution-go.sh", "install-env.py", "pg-backup.sh", "update.sh", "fix-webhook.py", "verificar-vps.sh"):
         yield ROOT / "scripts" / name
     for name in ("traefik.yml", "postgres.yml", "evolution-go.yml", "portainer.yml"):
         yield ROOT / "stacks" / name

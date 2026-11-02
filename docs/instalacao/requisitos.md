@@ -6,14 +6,14 @@ Revisado em 2026-11-01 com base nos arquivos desta versão. Endereços sob `exam
 
 | Item | No computador do comprador | Em VPS do comprador |
 |---|---|---|
-| Situação nesta versão | Ambiente local ainda sem instalador completo | Wizard por SSH implementado; homologação completa pendente |
+| Situação nesta versão | Procedimento manual documentado; sem instalador automático | Wizard por SSH implementado; homologação completa pendente |
 | Onde os serviços executam | No computador | No servidor |
 | Disponibilidade | Depende de computador, rede e serviços ligados; suspensão interrompe o atendimento | Depende de VPS, rede e serviços ligados |
-| Endereço do painel | Planejado: `http://localhost:3000` | Exemplo: `https://app.example.com` |
+| Endereço do painel | `http://localhost:3000` | Exemplo: `https://app.example.com` |
 | Endereço para integrações externas | Precisa de publicação HTTPS quando o provedor envia callbacks | Domínio público HTTPS da instalação |
 | Dados | Devem permanecer em banco e volumes persistentes locais | PostgreSQL e volumes persistentes na VPS |
 
-Veja [Local](local.md) ou [VPS](vps.md). Instalar no computador não significa funcionar offline: WhatsApp, Meta, provedores de IA e downloads dependem de internet.
+Veja [Local](local.md) ou [VPS](vps.md). Para conferir as ferramentas de cada caminho, use a [verificação](verificacao.md). Instalar no computador não significa funcionar offline: WhatsApp, Meta, provedores de IA e downloads dependem de internet.
 
 ## O que o computador precisa para iniciar o wizard VPS
 
